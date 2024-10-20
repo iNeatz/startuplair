@@ -27,3 +27,8 @@
   );
   transition: all 0.2s ease-out;
 }
+@layer base {
+  :root {
+    --radius: 0.5rem;
+  }
+}

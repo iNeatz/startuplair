@@ -1,16 +1,10 @@
-import TiltCard from "@/components/Hero/TiltCard";
-import Image from "next/image";
+import { createClient } from "@/prismicio";
+import { components } from "@/slices";
+import { SliceZone } from "@prismicio/react";
 
-export default function Home() {
-  return (
-    <div
-      className="flex h-screen w-full items-center justify-center"
-      style={{
-        background: `url('/logos/sul-purplebg-sq.png') center no-repeat`,
-		  backgroundSize: 'cover'
-      }}
-    >
-      <TiltCard />
-    </div>
-  );
+export default async function Home() {
+  const client = createClient();
+  const page = await client.getByUID("home", "home");
+
+  return <SliceZone slices={page.data.slices} components={components} />;
 }

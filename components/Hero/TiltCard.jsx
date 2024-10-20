@@ -32,9 +32,7 @@ const TiltCard = ({ children, className }) => {
         Math.pow(deltaX, 2) + Math.pow(deltaY, 2),
       );
       const maxDistance = Math.max(halfWidth, halfHeight);
-      const degree = (distanceToCenter * 10) / maxDistance;
 
-      card.current.style.transform = `perspective(400px) rotate3D(${-rx}, ${ry}, 0, ${degree}deg)`;
       gloss.current.style.transform = `translate(${ry * 100}%, ${rx * 100}%) scale(2.4)`;
       gloss.current.style.opacity = (distanceToCenter * 0.6) / maxDistance;
       gloss.current.style.display = "block";
@@ -43,7 +41,6 @@ const TiltCard = ({ children, className }) => {
   };
 
   const handleMouseLeave = () => {
-    card.current.style.transform = "";
     gloss.current.opacity = 0;
     gloss.current.style = null;
   };
@@ -53,7 +50,6 @@ const TiltCard = ({ children, className }) => {
       className={`main-shadow relative min-h-[400px] min-w-[400px] cursor-pointer overflow-hidden rounded-2xl p-2 duration-200 ease-in ${className} bg-transparent`}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      onClick={handleMouseLeave}
       style={{
         backgroundImage: `linear-gradient(120deg, rgba(255,255,255,0.3), rgba(0,0,0,0.2))`,
         backgroundSize: 40 + "px",

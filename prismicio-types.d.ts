@@ -4,7 +4,7 @@ import type * as prismic from "@prismicio/client";
 
 type Simplify<T> = { [KeyType in keyof T]: T[KeyType] };
 
-type HomeDocumentDataSlicesSlice = never;
+type HomeDocumentDataSlicesSlice = NavbarSlice;
 
 /**
  * Content for Home documents
@@ -57,15 +57,92 @@ interface HomeDocumentData {
  * Home document from Prismic
  *
  * - **API ID**: `home`
- * - **Repeatable**: `false`
+ * - **Repeatable**: `true`
  * - **Documentation**: https://prismic.io/docs/custom-types
  *
  * @typeParam Lang - Language API ID of the document.
  */
 export type HomeDocument<Lang extends string = string> =
-  prismic.PrismicDocumentWithoutUID<Simplify<HomeDocumentData>, "home", Lang>;
+  prismic.PrismicDocumentWithUID<Simplify<HomeDocumentData>, "home", Lang>;
 
 export type AllDocumentTypes = HomeDocument;
+
+/**
+ * Item in *Navbar → Default → Primary → Menu*
+ */
+export interface NavbarSliceDefaultPrimaryMenuItem {
+  /**
+   * Link field in *Navbar → Default → Primary → Menu*
+   *
+   * - **Field Type**: Link
+   * - **Placeholder**: *None*
+   * - **API ID Path**: navbar.default.primary.menu[].link
+   * - **Documentation**: https://prismic.io/docs/field#link-content-relationship
+   */
+  link: prismic.LinkField;
+}
+
+/**
+ * Primary content in *Navbar → Default → Primary*
+ */
+export interface NavbarSliceDefaultPrimary {
+  /**
+   * Logo field in *Navbar → Default → Primary*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: navbar.default.primary.logo
+   * - **Documentation**: https://prismic.io/docs/field#image
+   */
+  logo: prismic.ImageField<never>;
+
+  /**
+   * Menu field in *Navbar → Default → Primary*
+   *
+   * - **Field Type**: Group
+   * - **Placeholder**: *None*
+   * - **API ID Path**: navbar.default.primary.menu[]
+   * - **Documentation**: https://prismic.io/docs/field#group
+   */
+  menu: prismic.GroupField<Simplify<NavbarSliceDefaultPrimaryMenuItem>>;
+
+  /**
+   * Call to Action field in *Navbar → Default → Primary*
+   *
+   * - **Field Type**: Link
+   * - **Placeholder**: *None*
+   * - **API ID Path**: navbar.default.primary.call_to_action
+   * - **Documentation**: https://prismic.io/docs/field#link-content-relationship
+   */
+  call_to_action: prismic.LinkField;
+}
+
+/**
+ * Default variation for Navbar Slice
+ *
+ * - **API ID**: `default`
+ * - **Description**: Default
+ * - **Documentation**: https://prismic.io/docs/slice
+ */
+export type NavbarSliceDefault = prismic.SharedSliceVariation<
+  "default",
+  Simplify<NavbarSliceDefaultPrimary>,
+  never
+>;
+
+/**
+ * Slice variation for *Navbar*
+ */
+type NavbarSliceVariation = NavbarSliceDefault;
+
+/**
+ * Navbar Shared Slice
+ *
+ * - **API ID**: `navbar`
+ * - **Description**: Navbar
+ * - **Documentation**: https://prismic.io/docs/slice
+ */
+export type NavbarSlice = prismic.SharedSlice<"navbar", NavbarSliceVariation>;
 
 declare module "@prismicio/client" {
   interface CreateClient {
@@ -92,6 +169,11 @@ declare module "@prismicio/client" {
       HomeDocumentData,
       HomeDocumentDataSlicesSlice,
       AllDocumentTypes,
+      NavbarSlice,
+      NavbarSliceDefaultPrimaryMenuItem,
+      NavbarSliceDefaultPrimary,
+      NavbarSliceVariation,
+      NavbarSliceDefault,
     };
   }
 }

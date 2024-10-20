@@ -1,6 +1,8 @@
 import localFont from 'next/font/local'
 import { Poppins } from 'next/font/google'
 import './globals.css'
+import { PrismicPreview } from '@prismicio/next'
+import { repositoryName } from '@/prismicio'
 
 const poppins = Poppins({
 	subsets: ['latin'],
@@ -17,9 +19,10 @@ export default function RootLayout({ children }) {
 	return (
 		<html lang='en'>
 			<body
-				className={poppins.className}
+				className={`${poppins.className} bg-mainWhite`}
 			>
 				{children}
+				<PrismicPreview repositoryName={repositoryName} />
 			</body>
 		</html>
 	)
