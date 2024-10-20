@@ -4,7 +4,7 @@ import type * as prismic from "@prismicio/client";
 
 type Simplify<T> = { [KeyType in keyof T]: T[KeyType] };
 
-type HomeDocumentDataSlicesSlice = NavbarSlice;
+type HomeDocumentDataSlicesSlice = BentoSlice | NavbarSlice;
 
 /**
  * Content for Home documents
@@ -66,6 +66,197 @@ export type HomeDocument<Lang extends string = string> =
   prismic.PrismicDocumentWithUID<Simplify<HomeDocumentData>, "home", Lang>;
 
 export type AllDocumentTypes = HomeDocument;
+
+/**
+ * Item in *Bento → Default → Primary → Main Bento*
+ */
+export interface BentoSliceDefaultPrimaryMainBentoItem {
+  /**
+   * Image field in *Bento → Default → Primary → Main Bento*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: bento.default.primary.main_bento[].image
+   * - **Documentation**: https://prismic.io/docs/field#image
+   */
+  image: prismic.ImageField<never>;
+
+  /**
+   * Title field in *Bento → Default → Primary → Main Bento*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: bento.default.primary.main_bento[].title
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  title: prismic.KeyTextField;
+
+  /**
+   * Email field in *Bento → Default → Primary → Main Bento*
+   *
+   * - **Field Type**: Link
+   * - **Placeholder**: *None*
+   * - **API ID Path**: bento.default.primary.main_bento[].email
+   * - **Documentation**: https://prismic.io/docs/field#link-content-relationship
+   */
+  email: prismic.LinkField;
+}
+
+/**
+ * Item in *Bento → Default → Primary → Mutli Join Bento*
+ */
+export interface BentoSliceDefaultPrimaryMutliJoinBentoItem {
+  /**
+   * Main Text field in *Bento → Default → Primary → Mutli Join Bento*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: bento.default.primary.mutli_join_bento[].main_text
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  main_text: prismic.KeyTextField;
+
+  /**
+   * Sub Text field in *Bento → Default → Primary → Mutli Join Bento*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: bento.default.primary.mutli_join_bento[].sub_text
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  sub_text: prismic.KeyTextField;
+
+  /**
+   * Main Text 2 field in *Bento → Default → Primary → Mutli Join Bento*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: bento.default.primary.mutli_join_bento[].main_text_2
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  main_text_2: prismic.KeyTextField;
+
+  /**
+   * Sub Text 2 field in *Bento → Default → Primary → Mutli Join Bento*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: bento.default.primary.mutli_join_bento[].sub_text_2
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  sub_text_2: prismic.KeyTextField;
+}
+
+/**
+ * Item in *Bento → Default → Primary → Embed*
+ */
+export interface BentoSliceDefaultPrimaryEmbedItem {
+  /**
+   * Image to Show field in *Bento → Default → Primary → Embed*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: bento.default.primary.embed[].image_to_show
+   * - **Documentation**: https://prismic.io/docs/field#image
+   */
+  image_to_show: prismic.ImageField<never>;
+
+  /**
+   * Embed Link field in *Bento → Default → Primary → Embed*
+   *
+   * - **Field Type**: Embed
+   * - **Placeholder**: *None*
+   * - **API ID Path**: bento.default.primary.embed[].embed_link
+   * - **Documentation**: https://prismic.io/docs/field#embed
+   */
+  embed_link: prismic.EmbedField;
+}
+
+/**
+ * Primary content in *Bento → Default → Primary*
+ */
+export interface BentoSliceDefaultPrimary {
+  /**
+   * Tagline field in *Bento → Default → Primary*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: bento.default.primary.tagline
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  tagline: prismic.KeyTextField;
+
+  /**
+   * Main Bento field in *Bento → Default → Primary*
+   *
+   * - **Field Type**: Group
+   * - **Placeholder**: *None*
+   * - **API ID Path**: bento.default.primary.main_bento[]
+   * - **Documentation**: https://prismic.io/docs/field#group
+   */
+  main_bento: prismic.GroupField<
+    Simplify<BentoSliceDefaultPrimaryMainBentoItem>
+  >;
+
+  /**
+   * Image bento field in *Bento → Default → Primary*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: bento.default.primary.image_bento
+   * - **Documentation**: https://prismic.io/docs/field#image
+   */
+  image_bento: prismic.ImageField<never>;
+
+  /**
+   * Mutli Join Bento field in *Bento → Default → Primary*
+   *
+   * - **Field Type**: Group
+   * - **Placeholder**: *None*
+   * - **API ID Path**: bento.default.primary.mutli_join_bento[]
+   * - **Documentation**: https://prismic.io/docs/field#group
+   */
+  mutli_join_bento: prismic.GroupField<
+    Simplify<BentoSliceDefaultPrimaryMutliJoinBentoItem>
+  >;
+
+  /**
+   * Embed field in *Bento → Default → Primary*
+   *
+   * - **Field Type**: Group
+   * - **Placeholder**: *None*
+   * - **API ID Path**: bento.default.primary.embed[]
+   * - **Documentation**: https://prismic.io/docs/field#group
+   */
+  embed: prismic.GroupField<Simplify<BentoSliceDefaultPrimaryEmbedItem>>;
+}
+
+/**
+ * Default variation for Bento Slice
+ *
+ * - **API ID**: `default`
+ * - **Description**: Default
+ * - **Documentation**: https://prismic.io/docs/slice
+ */
+export type BentoSliceDefault = prismic.SharedSliceVariation<
+  "default",
+  Simplify<BentoSliceDefaultPrimary>,
+  never
+>;
+
+/**
+ * Slice variation for *Bento*
+ */
+type BentoSliceVariation = BentoSliceDefault;
+
+/**
+ * Bento Shared Slice
+ *
+ * - **API ID**: `bento`
+ * - **Description**: Bento
+ * - **Documentation**: https://prismic.io/docs/slice
+ */
+export type BentoSlice = prismic.SharedSlice<"bento", BentoSliceVariation>;
 
 /**
  * Item in *Navbar → Default → Primary → Menu*
@@ -169,6 +360,13 @@ declare module "@prismicio/client" {
       HomeDocumentData,
       HomeDocumentDataSlicesSlice,
       AllDocumentTypes,
+      BentoSlice,
+      BentoSliceDefaultPrimaryMainBentoItem,
+      BentoSliceDefaultPrimaryMutliJoinBentoItem,
+      BentoSliceDefaultPrimaryEmbedItem,
+      BentoSliceDefaultPrimary,
+      BentoSliceVariation,
+      BentoSliceDefault,
       NavbarSlice,
       NavbarSliceDefaultPrimaryMenuItem,
       NavbarSliceDefaultPrimary,
