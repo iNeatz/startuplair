@@ -2,7 +2,7 @@
 
 import { useRef } from "react";
 
-const TiltCard = ({ children, className }) => {
+const TiltCard = ({ children, className, style }) => {
   const card = useRef(null);
   const gloss = useRef(null);
   let animationFrameId = null;
@@ -32,7 +32,9 @@ const TiltCard = ({ children, className }) => {
         Math.pow(deltaX, 2) + Math.pow(deltaY, 2),
       );
       const maxDistance = Math.max(halfWidth, halfHeight);
+      const degree = (distanceToCenter * 3) / maxDistance;
 
+      card.current.style.transform = `perspective(400px) rotate3D(${-rx}, ${ry}, 0, ${degree}deg)`;
       gloss.current.style.transform = `translate(${ry * 100}%, ${rx * 100}%) scale(2.4)`;
       gloss.current.style.opacity = (distanceToCenter * 0.6) / maxDistance;
       gloss.current.style.display = "block";
@@ -41,20 +43,17 @@ const TiltCard = ({ children, className }) => {
   };
 
   const handleMouseLeave = () => {
+    card.current.style.transform = null;
     gloss.current.opacity = 0;
     gloss.current.style = null;
   };
 
   return (
     <div
-      className={`main-shadow relative min-h-[400px] min-w-[400px] cursor-pointer overflow-hidden rounded-2xl p-2 duration-200 ease-in ${className} bg-transparent`}
+      className={`main-shadow relative cursor-pointer overflow-hidden rounded-2xl backdrop-blur-[20px] duration-200 ease-in ${className}`}
+      style={style}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      style={{
-        backgroundImage: `linear-gradient(120deg, rgba(255,255,255,0.3), rgba(0,0,0,0.2))`,
-        backgroundSize: 40 + "px",
-        backdropFilter: "blur(20px)",
-      }}
       ref={card}
     >
       <div

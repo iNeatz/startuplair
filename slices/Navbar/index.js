@@ -68,13 +68,13 @@ const Navbar = ({ slice }) => {
     <section
       data-slice-type={slice.slice_type}
       data-slice-variation={slice.variation}
-      className="relative flex justify-center"
+      className="relative flex justify-center z-[10]"
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
       ref={card}
     >
       <div
-        className="gloss pointer-events-none absolute left-0 top-0 hidden h-full w-full rounded-full"
+        className="gloss pointer-events-none absolute left-0 top-0 hidden h-full w-full rounded-full shadow-lg"
         ref={gloss}
       />
       <div className="fixed mx-auto my-2 flex w-[95%] items-center justify-between rounded-xl bg-black p-2 px-2 text-white">
