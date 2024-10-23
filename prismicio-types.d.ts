@@ -164,12 +164,12 @@ export interface BentoSliceDefaultPrimaryEmbedItem {
   /**
    * Embed Link field in *Bento → Default → Primary → Embed*
    *
-   * - **Field Type**: Embed
+   * - **Field Type**: Link
    * - **Placeholder**: *None*
    * - **API ID Path**: bento.default.primary.embed[].embed_link
-   * - **Documentation**: https://prismic.io/docs/field#embed
+   * - **Documentation**: https://prismic.io/docs/field#link-content-relationship
    */
-  embed_link: prismic.EmbedField;
+  embed_link: prismic.LinkField;
 }
 
 /**

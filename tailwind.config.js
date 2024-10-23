@@ -19,6 +19,10 @@ module.exports = {
           secondary: "#7b25d0",
         },
         mainWhite: "#f2f2f2",
+        teal: {
+          default: "#97FEFE",
+          secondary: "#1FD2D2",
+        },
       },
       borderRadius: {
         lg: "var(--radius)",
