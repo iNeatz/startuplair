@@ -17,7 +17,7 @@ const Bento = ({ slice }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    setLoading(false)
+    setLoading(false);
     gsap.fromTo(
       ".tilt-card",
       {
@@ -178,11 +178,11 @@ const Bento = ({ slice }) => {
         </div>
         {slice.primary.embed.map((item) => (
           // Render the item
-          <TiltCard className="tilt-card order-3 col-span-2 row-span-2">
-            <div className="dragBox group relative rounded-xl">
+          <TiltCard className="tilt-card relative order-3 col-span-2 row-span-2">
+            <div className="dragBox group absolute inset-0 h-full w-full rounded-xl">
               <PrismicNextImage
                 field={item.image_to_show}
-                className="h-full w-full rounded-xl object-cover"
+                className="inset-0 h-full w-full rounded-xl object-cover"
               />
               <span
                 className="dragItem hover:scale-120 absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-[10px] bg-transparent p-10 text-white duration-200 group-hover:scale-110"
