@@ -4,7 +4,7 @@ import TiltCard from "@/components/Hero/TiltCard";
 import { PrismicNextImage, PrismicNextLink } from "@prismicio/next";
 import gsap from "gsap";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { FaRegHandPaper } from "react-icons/fa";
 import Loader from "@/components/Loader";
 
@@ -15,9 +15,28 @@ import Loader from "@/components/Loader";
  */
 const Bento = ({ slice }) => {
   const [loading, setLoading] = useState(true);
+  const textRef = useRef(null);
 
   useEffect(() => {
     setLoading(false);
+    const textElement = textRef.current;
+
+    // Split the text into letters and wrap each letter with a <span>
+    const text = textElement.textContent;
+    textElement.innerHTML = text
+      .split("")
+      .map((letter) => `<span class="letter">${letter}</span>`)
+      .join("");
+
+    // Animate each letter with stagger
+    gsap.from(".letter", {
+      duration: 1, // duration of the animation for each letter
+      scale: 0, // starting scale
+      opacity: 0, // starting opacity
+      ease: "elastic.out(1, 0.3)", // easing for a bounce effect
+      stagger: 0.1, // delay between each letter animation
+    });
+
     gsap.fromTo(
       ".tilt-card",
       {
@@ -173,6 +192,7 @@ const Bento = ({ slice }) => {
             fontVariant: "small-caps",
           }}
           contentEditable
+          ref={textRef}
         >
           {slice.primary.tagline}
         </div>
