@@ -33,6 +33,7 @@ const Bento = ({ slice }) => {
       duration: 1, // duration of the animation for each letter
       scale: 0, // starting scale
       opacity: 0, // starting opacity
+      delay: 0.3,
       ease: "elastic.out(1, 0.3)", // easing for a bounce effect
       stagger: 0.1, // delay between each letter animation
     });
