@@ -19,7 +19,7 @@ export default function RootLayout({ children }) {
 	return (
 		<html lang='en'>
 			<body
-				className={`${poppins.className} bg-mainWhite`}
+				className={`${poppins.className} bg-mainWhite overflow-x-hidden`}
 			>
 				{children}
 				<PrismicPreview repositoryName={repositoryName} />
