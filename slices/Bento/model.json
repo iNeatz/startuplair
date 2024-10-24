@@ -111,16 +111,6 @@
                   "constraint": {},
                   "thumbnails": []
                 }
-              },
-              "embed_link": {
-                "type": "Link",
-                "config": {
-                  "label": "Embed Link",
-                  "placeholder": "",
-                  "allowTargetBlank": true,
-                  "select": null,
-                  "allowText": true
-                }
               }
             }
           }

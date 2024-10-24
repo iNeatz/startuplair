@@ -4,7 +4,10 @@ import type * as prismic from "@prismicio/client";
 
 type Simplify<T> = { [KeyType in keyof T]: T[KeyType] };
 
-type HomeDocumentDataSlicesSlice = BentoSlice | NavbarSlice;
+type HomeDocumentDataSlicesSlice =
+  | DraggableGsapSlice
+  | BentoSlice
+  | NavbarSlice;
 
 /**
  * Content for Home documents
@@ -160,16 +163,6 @@ export interface BentoSliceDefaultPrimaryEmbedItem {
    * - **Documentation**: https://prismic.io/docs/field#image
    */
   image_to_show: prismic.ImageField<never>;
-
-  /**
-   * Embed Link field in *Bento → Default → Primary → Embed*
-   *
-   * - **Field Type**: Link
-   * - **Placeholder**: *None*
-   * - **API ID Path**: bento.default.primary.embed[].embed_link
-   * - **Documentation**: https://prismic.io/docs/field#link-content-relationship
-   */
-  embed_link: prismic.LinkField;
 }
 
 /**
@@ -257,6 +250,36 @@ type BentoSliceVariation = BentoSliceDefault;
  * - **Documentation**: https://prismic.io/docs/slice
  */
 export type BentoSlice = prismic.SharedSlice<"bento", BentoSliceVariation>;
+
+/**
+ * Default variation for DraggableGsap Slice
+ *
+ * - **API ID**: `default`
+ * - **Description**: Default
+ * - **Documentation**: https://prismic.io/docs/slice
+ */
+export type DraggableGsapSliceDefault = prismic.SharedSliceVariation<
+  "default",
+  Record<string, never>,
+  never
+>;
+
+/**
+ * Slice variation for *DraggableGsap*
+ */
+type DraggableGsapSliceVariation = DraggableGsapSliceDefault;
+
+/**
+ * DraggableGsap Shared Slice
+ *
+ * - **API ID**: `draggable_gsap`
+ * - **Description**: DraggableGsap
+ * - **Documentation**: https://prismic.io/docs/slice
+ */
+export type DraggableGsapSlice = prismic.SharedSlice<
+  "draggable_gsap",
+  DraggableGsapSliceVariation
+>;
 
 /**
  * Item in *Navbar → Default → Primary → Menu*
@@ -367,6 +390,9 @@ declare module "@prismicio/client" {
       BentoSliceDefaultPrimary,
       BentoSliceVariation,
       BentoSliceDefault,
+      DraggableGsapSlice,
+      DraggableGsapSliceVariation,
+      DraggableGsapSliceDefault,
       NavbarSlice,
       NavbarSliceDefaultPrimaryMenuItem,
       NavbarSliceDefaultPrimary,

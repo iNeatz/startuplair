@@ -4,5 +4,6 @@ import dynamic from "next/dynamic";
 
 export const components = {
   bento: dynamic(() => import("./Bento")),
+  draggable_gsap: dynamic(() => import("./DraggableGsap")),
   navbar: dynamic(() => import("./Navbar")),
 };

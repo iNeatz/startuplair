@@ -17,6 +17,9 @@
         "fieldset": "Slice Zone",
         "config": {
           "choices": {
+            "draggable_gsap": {
+              "type": "SharedSlice"
+            },
             "bento": {
               "type": "SharedSlice"
             },

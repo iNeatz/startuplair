@@ -1,0 +1,18 @@
+{
+  "id": "draggable_gsap",
+  "type": "SharedSlice",
+  "name": "DraggableGsap",
+  "description": "DraggableGsap",
+  "variations": [
+    {
+      "id": "default",
+      "name": "Default",
+      "docURL": "...",
+      "version": "initial",
+      "description": "Default",
+      "imageUrl": "",
+      "primary": {},
+      "items": {}
+    }
+  ]
+}

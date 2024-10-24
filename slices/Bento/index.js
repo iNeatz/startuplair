@@ -5,7 +5,7 @@ import { PrismicNextImage, PrismicNextLink } from "@prismicio/next";
 import gsap from "gsap";
 import Image from "next/image";
 import { useEffect } from "react";
-import { FaPlay } from "react-icons/fa6";
+import { FaRegHandPaper } from "react-icons/fa";
 
 /**
  * @typedef {import("@prismicio/client").Content.BentoSlice} BentoSlice
@@ -27,6 +27,20 @@ const Bento = ({ slice }) => {
       repeat: -1,
       ease: "linear",
     });
+
+    // Dynamically import Draggable to avoid SSR issues
+    if (typeof window !== "undefined") {
+      import("gsap/Draggable")
+        .then(({ default: Draggable }) => {
+          gsap.registerPlugin(Draggable);
+
+          // Create draggable elements
+          Draggable.create(".dragItem", {
+            bounds: ".dragBox",
+          });
+        })
+        .catch((error) => console.log("Error loading Draggable:", error));
+    }
   }, []);
 
   return (
@@ -72,7 +86,7 @@ const Bento = ({ slice }) => {
             }}
             className="h-full rounded-xl !rounded-tr-none"
           >
-            <div className="absolute right-2 w-2/3 rounded-full border-4 p-4 sm:w-1/2 md:top-2 lg:w-2/3 lg:top-10">
+            <div className="absolute right-2 w-2/3 rounded-full border-4 p-4 sm:w-1/2 md:top-2 lg:top-10 lg:w-2/3">
               <PrismicNextImage field={item.image} className="rounded-full" />
             </div>
             <div className="absolute bottom-[40px] left-2 w-[100px] space-y-2 lg:w-full">
@@ -132,24 +146,24 @@ const Bento = ({ slice }) => {
         style={{
           fontVariant: "small-caps",
         }}
+        contentEditable
       >
         {slice.primary.tagline}
       </div>
       {slice.primary.embed.map((item) => (
         // Render the item
         <TiltCard className="order-3 col-span-2 row-span-2">
-          <PrismicNextLink
-            field={item.embed_link}
-            className="group relative rounded-xl"
+          <div
+            className="group relative rounded-xl dragBox"
           >
             <PrismicNextImage
               field={item.image_to_show}
               className="h-full w-full rounded-xl object-cover"
             />
-            <span className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-transparent p-4 backdrop-blur duration-200 group-hover:scale-110">
-              <FaPlay className="text-lg text-white" />
+            <span className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-[10px] bg-transparent p-10 backdrop-blur dragItem duration-200 group-hover:scale-110 text-white">
+              <FaRegHandPaper />
             </span>
-          </PrismicNextLink>
+          </div>
         </TiltCard>
       ))}
       {slice.primary.mutli_join_bento.map((item, index) => (
@@ -163,7 +177,7 @@ const Bento = ({ slice }) => {
             </h2>
             <span className="text-sm lg:text-base">{item.sub_text}</span>
           </div>
-          <div className="bg-teal-secondary flex flex-1 flex-col items-center justify-center text-purple-800">
+          <div className="flex flex-1 flex-col items-center justify-center bg-teal-secondary text-purple-800">
             <h2 className="text-base font-bold md:text-xl lg:text-3xl">
               {item.main_text_2}
             </h2>
